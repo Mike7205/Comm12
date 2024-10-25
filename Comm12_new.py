@@ -49,11 +49,12 @@ def comm_data(comm):
     return Tab_his
 
 # Styl zakładki bocznej
-st.html("""<style>[data-testid="stSidebarContent"] {color: black; background-color: #F6BE00} </style>""")
-st.sidebar.subheader('Indexies, Currencies, Bonds, Commodities & Crypto', divider="grey")
-comm = st.sidebar.radio('', list(comm_dict.values()))
-comm_f(comm)
-st.sidebar.write('© Michał Leśniewski')
+with st.sidebar(position='right'):
+  st.html("""<style>[data-testid="stSidebarContent"] {color: black; background-color: #F6BE00} </style>""")
+  st.sidebar.subheader('Indexies, Currencies, Bonds, Commodities & Crypto', divider="grey")
+  comm = st.sidebar.radio('', list(comm_dict.values()))
+  comm_f(comm)
+  st.sidebar.write('© Michał Leśniewski')
 
 # Deskryptor desktopu
 st.subheader(f'Base quotations for -> {comm}', divider='blue')
