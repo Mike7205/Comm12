@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import pandas_ta as ta
+from ta.momentum import RSIIndicator
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
@@ -130,7 +130,8 @@ if checkbox_value2:
 
 if checkbox_value_rsi:
     st.subheader(f'{comm} Relative Strength Index (RSI)', divider='grey')
-    comm_entry_XDays['RSI'] = ta.rsi(comm_entry_XDays['Close'], length=14)
+    rsi = RSIIndicator(close=comm_entry_XDays['Close'], window=14)
+    comm_entry_XDays['RSI'] = rsi.rsi()
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
                                   mode='lines', name='RSI', line=dict(color='#00873E')))
         
