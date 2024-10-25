@@ -132,7 +132,7 @@ if checkbox_value_rsi:
     st.subheader(f'{comm} Relative Strength Index (RSI)', divider='red')
     col7, _ = st.columns([0.3, 0.6])
     with col7:
-      rsi_entry = st.slider('How big window you need ?', 1, 14, 1, key="<rsi_window>")
+      rsi_entry = st.slider('How big window you need ?', 5, 30, 1, key="<rsi_window>")
     
     rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
