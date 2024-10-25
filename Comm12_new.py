@@ -22,6 +22,9 @@ comm_dict = {'^GSPC': 'SP_500', '^DJI': 'DJI30', '^IXIC': 'NASDAQ',
              '^TYX': '30_YB', 'CL=F': 'Crude_Oil', 'BZ=F': 'Brent_Oil', 'GC=F': 'Gold','HG=F': 'Copper', 'PL=F': 'Platinum', 
              'SI=F': 'Silver', 'NG=F': 'Natural Gas', 'ZR=F': 'Rice Futures', 'ZS=F': 'Soy Futures', 'BTC-USD': 'Bitcoin USD','ETH-USD': 'Ethereum USD'}
 
+comm = st.radio('', list(comm_dict.values()))
+comm_f(comm)
+
 # Pobieranie danych
 def comm_f(comm):
     global comm_entry
@@ -50,9 +53,11 @@ def comm_data(comm):
 
 # Styl zakładki bocznej
 st.html("""<style>[data-testid="stSidebarContent"] {color: black; background-color: #F6BE00} </style>""")
-st.sidebar.subheader('Indexies, Currencies, Bonds, Commodities & Crypto', divider="grey")
-comm = st.sidebar.radio('', list(comm_dict.values()))
-comm_f(comm)
+st.sidebar.subheader('Choose tech analyse tool') #('Indexies, Currencies, Bonds, Commodities & Crypto', divider="grey")
+checkbox_value1 = st.checkbox('Do you want to see short and long term averages ?', key="<aver1>")
+checkbox_value2 = st.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
+#comm = st.sidebar.radio('', list(comm_dict.values()))
+#comm_f(comm)
 st.sidebar.write('© Michał Leśniewski')
 
 # Deskryptor desktopu
@@ -62,8 +67,8 @@ with col1:
     side_tab = pd.DataFrame(comm_data(comm))
     st.write('Main Metrics:')
     st.markdown(side_tab.to_html(escape=False, index=False), unsafe_allow_html=True)
-    checkbox_value1 = st.checkbox('Do you want to see short and long term averages ?', key="<aver1>")
-    checkbox_value2 = st.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
+    #checkbox_value1 = st.checkbox('Do you want to see short and long term averages ?', key="<aver1>")
+    #checkbox_value2 = st.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
     
 with col2:
     xy = (list(comm_entry.index)[-1])
