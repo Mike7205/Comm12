@@ -129,6 +129,7 @@ if checkbox_value2:
 
 if checkbox_value_rsi:
     st.subheader(f'{comm} Relative Strength Index (RSI)', divider='grey')
+    comm_entry_XDays['RSI'] = ta.rsi(comm_entry_XDays['Close'], length=14)
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
                                   mode='lines', name='RSI', line=dict(color='#00873E')))
         
