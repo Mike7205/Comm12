@@ -22,37 +22,6 @@ comm_dict = {'^GSPC': 'SP_500', '^DJI': 'DJI30', '^IXIC': 'NASDAQ',
              '^TYX': '30_YB', 'CL=F': 'Crude_Oil', 'BZ=F': 'Brent_Oil', 'GC=F': 'Gold','HG=F': 'Copper', 'PL=F': 'Platinum', 
              'SI=F': 'Silver', 'NG=F': 'Natural Gas', 'ZR=F': 'Rice Futures', 'ZS=F': 'Soy Futures', 'BTC-USD': 'Bitcoin USD','ETH-USD': 'Ethereum USD'}
 
-# Styl CSS dla nagłówka
-st.markdown("""
-    <style>
-        .header {
-            background-color: #F39F18;
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header h1 {
-            color: black;
-            margin: 0;
-        }
-        .header .radio-buttons {
-            display: flex;
-            gap: 10px;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# Tworzenie nagłówka z tytułem i radio buttonami
-st.markdown(
-    '<div class="header">'
-    '<h1>Global economy indicators tech analyse dashboard</h1>'
-    '</div>',
-    unsafe_allow_html=True
-)
-
 # Pobieranie danych
 def comm_f(comm):
     global comm_entry
