@@ -134,7 +134,7 @@ if checkbox_value_rsi:
     with col7:
       rsi_entry = st.slider('How long prices history you need?', 1, 14, 1, key="<rsi>")
     
-    rsi = RSIIndicator(close=comm_entry_XDays['Close'], window=rsi_entry)
+    rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
                                   mode='lines', name='RSI', line=dict(color='#00873E')))
