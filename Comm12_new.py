@@ -8,7 +8,7 @@ from datetime import datetime, date
 
 # Ustawienia strony
 st.set_page_config(layout="wide")
-#st.title('Global economy indicators tech analyse dashboard')
+st.title('Global economy indicators tech analyse dashboard')
 
 # Definicje i słowniki
 today = date.today()
