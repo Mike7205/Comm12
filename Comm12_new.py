@@ -79,7 +79,7 @@ with col2:
     
 comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
 # Base Chart
-fig_base = px.line(comm_entry_XDays, x='Date', y=['Close'], color_discrete_map={'Close':'black'}, width=1000, height=500)  
+fig_base = px.line(comm_entry_XDays, x='Date', y=['Close'], color_discrete_map={'Close':'black'}, width=1100, height=600)  
 
 if checkbox_value1:
     st.subheader(f'{comm} Short and long term averages', divider='red')
@@ -137,7 +137,7 @@ if checkbox_value_rsi:
     rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
     fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y= comm_entry_XDays['RSI'], name='RSI', marker_color='rgba(103,71,54, 0.5)', yaxis='y2'))  # Zmiana koloru na półprzezroczysty
-    fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), legend=dict( x=1.1, y=1 ), width=1000, height=500) # Pozycja legendy, aby przesunąć ją w prawo
+    fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), legend=dict( x=1.1, y=1 ), width=1100, height=600) # Pozycja legendy, aby przesunąć ją w prawo
 
 
 st.plotly_chart(fig_base, use_container_width=True)
