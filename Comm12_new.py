@@ -136,11 +136,9 @@ if checkbox_value_rsi:
     
     rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
-    #fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
-    #                              mode='lines', name='RSI', line=dict(color='#00873E')))
     fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
                           name='RSI', marker_color = '#00C0A3', yaxis='y2'))
     fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), width=1000, height=500)
         
-#fig_base.update_layout(xaxis=None, yaxis=None)
+fig_base.update_layout(xaxis=None, yaxis=None)
 st.plotly_chart(fig_base, use_container_width=True)
