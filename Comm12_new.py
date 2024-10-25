@@ -140,5 +140,5 @@ if checkbox_value_rsi:
                           name='RSI', marker_color = '#00C0A3', yaxis='y2'))
     fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), width=1000, height=500)
         
-fig_base.update_layout(xaxis=None, yaxis=None)
+#fig_base.update_layout(xaxis=None, yaxis=None)
 st.plotly_chart(fig_base, use_container_width=True)
