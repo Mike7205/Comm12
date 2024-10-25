@@ -48,7 +48,7 @@ def comm_data(comm):
     Tab_his['End_Date'] = Tab_his['End_Date'].dt.strftime('%Y-%m-%d')
     return Tab_his
 
-comm = st.radio('', list(comm_dict.values()),layout='horizontal')
+comm = st.radio('', list(comm_dict.values()), horizontal=True)
 comm_f(comm)
 
 # Styl zakładki bocznej
