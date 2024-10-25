@@ -22,9 +22,6 @@ comm_dict = {'^GSPC': 'SP_500', '^DJI': 'DJI30', '^IXIC': 'NASDAQ',
              '^TYX': '30_YB', 'CL=F': 'Crude_Oil', 'BZ=F': 'Brent_Oil', 'GC=F': 'Gold','HG=F': 'Copper', 'PL=F': 'Platinum', 
              'SI=F': 'Silver', 'NG=F': 'Natural Gas', 'ZR=F': 'Rice Futures', 'ZS=F': 'Soy Futures', 'BTC-USD': 'Bitcoin USD','ETH-USD': 'Ethereum USD'}
 
-comm = st.radio('', list(comm_dict.values()))
-comm_f(comm)
-
 # Pobieranie danych
 def comm_f(comm):
     global comm_entry
@@ -50,6 +47,9 @@ def comm_data(comm):
     Tab_his['Start_Date'] = Tab_his['Start_Date'].dt.strftime('%Y-%m-%d')
     Tab_his['End_Date'] = Tab_his['End_Date'].dt.strftime('%Y-%m-%d')
     return Tab_his
+
+comm = st.radio('', list(comm_dict.values()),layout='horizontal')
+comm_f(comm)
 
 # Styl zakładki bocznej
 st.html("""<style>[data-testid="stSidebarContent"] {color: black; background-color: #F6BE00} </style>""")
