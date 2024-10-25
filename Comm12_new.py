@@ -136,7 +136,8 @@ if checkbox_value_rsi:
     
     rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
-    fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y= comm_entry_XDays['RSI'], name='RSI', marker_color='rgba( 0, 135, 62, 0.5)', yaxis='y2'))  # Zmiana koloru na półprzezroczysty
+    fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y= comm_entry_XDays['RSI'], name='RSI', marker_color='rgba( 169, 64, 7, 0.5)', yaxis='y2'))  # Zmiana koloru na półprzezroczysty
     fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), legend=dict( x=1.1, y=1 ), width=1000, height=500) # Pozycja legendy, aby przesunąć ją w prawo
-    
+
+
 st.plotly_chart(fig_base, use_container_width=True)
