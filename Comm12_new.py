@@ -140,9 +140,7 @@ if checkbox_value_rsi:
     #                      name='RSI', marker_color = '#00C0A3', yaxis='y2'))
     #fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), width=1000, height=500)
     fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
-                          name='RSI', marker_color='rgba(0, 192, 163, 0.5)', yaxis='y2'))  # Zmiana koloru na półprzezroczysty
+                          name='RSI', marker_color='rgba(0, 149, 138, 0.5)', yaxis='y2'))  # Zmiana koloru na półprzezroczysty
     fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), legend=dict( x=1.1, y=1 ), width=1000, height=500) # Pozycja legendy, aby przesunąć ją w prawo
-
-        
-#fig_base.update_layout(xaxis=None, yaxis=None)
+      
 st.plotly_chart(fig_base, use_container_width=True)
