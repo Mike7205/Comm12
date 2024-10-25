@@ -129,8 +129,12 @@ if checkbox_value2:
                               marker=dict(color='#C724B1', size=12, symbol='triangle-down')))
 
 if checkbox_value_rsi:
-    st.subheader(f'{comm} Relative Strength Index (RSI)', divider='grey')
-    rsi = RSIIndicator(close=comm_entry_XDays['Close'], window=14)
+    st.subheader(f'{comm} Relative Strength Index (RSI)', divider='red')
+    col7, _ = st.columns([0.3, 0.6])
+    with col7:
+      rsi_entry = st.slider('How long prices history you need?', 1, 14, 1, key="<commodities>")
+    
+    rsi = RSIIndicator(close=comm_entry_XDays['Close'], window=rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
                                   mode='lines', name='RSI', line=dict(color='#00873E')))
