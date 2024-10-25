@@ -100,7 +100,7 @@ if checkbox_value1:
                              mode='lines', name='Long_SMA', line=dict(color='#A60A3D', dash='dot')))
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays[comm_entry_XDays['Buy_Signal'] == 1].Date, 
                                   y=comm_entry_XDays[comm_entry_XDays['Buy_Signal'] == 1]['Short_SMA'], 
-                              name='Buy_Signal', mode='markers', marker=dict(color='green', size=15, symbol='triangle-up')))
+                              name='Buy_Signal', mode='markers', marker=dict(color='#44D62C', size=15, symbol='triangle-up')))
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays[comm_entry_XDays['Sell_Signal'] == 1].Date, 
                                   y=comm_entry_XDays[comm_entry_XDays['Sell_Signal'] == 1]['Short_SMA'], 
                               name='Sell_Signal', mode='markers', marker=dict(color='red', size=15, symbol='triangle-down')))
