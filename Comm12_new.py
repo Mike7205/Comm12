@@ -130,7 +130,7 @@ if checkbox_value2:
 if checkbox_value_rsi:
     st.subheader(f'{comm} Relative Strength Index (RSI)', divider='grey')
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
-                                  mode='lines', name='RSI', line=dict(color='#00873E'
+                                  mode='lines', name='RSI', line=dict(color='#00873E')))
         
 fig_base.update_layout(xaxis=None, yaxis=None)
 st.plotly_chart(fig_base, use_container_width=True)
