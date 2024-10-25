@@ -8,7 +8,65 @@ from datetime import datetime, date
 
 # Ustawienia strony
 st.set_page_config(layout="wide")
-st.title('Global economy indicators tech analyse dashboard')
+# Definiowanie słownika comm_dict
+comm_dict = {
+    '^GSPC': 'SP_500', '^DJI': 'DJI30', '^IXIC': 'NASDAQ',
+    '000001.SS': 'SSE Composite Index', '^HSI': 'HANG SENG INDEX',
+    '^VIX': 'CBOE Volatility Index', '^RUT': 'Russell 2000',
+    '^BVSP': 'IBOVESPA', '^FTSE': 'FTSE 100', '^GDAXI': 'DAX PERFORMANCE-INDEX',
+    '^N100': 'Euronext 100 Index', '^N225': 'Nikkei 225',
+    'EURUSD=X': 'EUR_USD', 'EURCHF=X': 'EUR_CHF', 'CNY=X': 'USD/CNY',
+    'GBPUSD=X': 'USD_GBP', 'JPY=X': 'USD_JPY', 'EURPLN=X': 'EUR/PLN',
+    'PLN=X': 'PLN/USD', 'RUB=X': 'USD/RUB', 'DX-Y.NYB': 'US Dollar Index',
+    '^XDE': 'Euro Currency Index', '^XDN': 'Japanese Yen Currency Index',
+    '^XDA': 'Australian Dollar Currency Index', '^XDB': 'British Pound Currency Index',
+    '^FVX': '5_YB', '^TNX': '10_YB', '^TYX': '30_YB',
+    'CL=F': 'Crude_Oil', 'BZ=F': 'Brent_Oil', 'GC=F': 'Gold',
+    'HG=F': 'Copper', 'PL=F': 'Platinum', 'SI=F': 'Silver', 
+    'NG=F': 'Natural Gas', 'ZR=F': 'Rice Futures', 'ZS=F': 'Soy Futures',
+    'BTC-USD': 'Bitcoin USD', 'ETH-USD': 'Ethereum USD'
+}
+
+# Ustawienia strony dla pełnej szerokości
+st.set_page_config(layout="wide")
+
+# Styl CSS dla nagłówka
+st.markdown("""
+    <style>
+        .header {
+            background-color: #F39F18;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: black;
+            margin: 0;
+        }
+        .header .radio-buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Tworzenie nagłówka z tytułem i radio buttonami
+st.markdown(
+    '<div class="header">'
+    '<h1>Global economy indicators tech analyse dashboard</h1>'
+    '<div class="radio-buttons">'
+    '<form id="radio_buttons_form">'
+    ''.join([f'<label><input type="radio" name="comm" value="{val}"> {val}</label>'
+             for val in comm_dict.values()])
+    '</form>'
+    '</div>'
+    '</div>',
+    unsafe_allow_html=True
+)
+#st.title('Global economy indicators tech analyse dashboard')
 
 # Definicje i słowniki
 today = date.today()
