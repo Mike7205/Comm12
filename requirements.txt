@@ -8,4 +8,4 @@ scipy
 scikit-learn
 statsmodels
 tensorflow
-pandas_ta
+ta
