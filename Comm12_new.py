@@ -56,6 +56,7 @@ st.html("""<style>[data-testid="stSidebarContent"] {color: black; background-col
 st.sidebar.subheader('Choose tech analyse tool') #('Indexies, Currencies, Bonds, Commodities & Crypto', divider="grey")
 checkbox_value1 = st.sidebar.checkbox('Do you want to see short and long term averages ?', key="<aver1>")
 checkbox_value2 = st.sidebar.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
+checkbox_value_rsi = st.checkbox('Show Relative Strength Index (RSI)', key="<rsi>")
 #comm = st.sidebar.radio('', list(comm_dict.values()))
 #comm_f(comm)
 st.sidebar.write('© Michał Leśniewski')
@@ -117,13 +118,19 @@ if checkbox_value2:
     comm_entry_XDays['%D'] = comm_entry_XDays['%K'].rolling(window = 3).mean()
 
     # Generowanie sygnałów kupna/sprzedaży
-    comm_entry_XDays['Buy_Signal'] = np.where((comm_entry_XDays['%K'] < 20) & (comm_entry_XDays['%K'] > comm_entry_XDays['%D']),                                                   comm_entry_XDays['Close'], np.nan)
-    comm_entry_XDays['Sell_Signal'] = np.where((comm_entry_XDays['%K'] > 80) & (comm_entry_XDays['%K'] < comm_entry_XDays['%D']),                                                 comm_entry_XDays['Close'], np.nan)
-
+    comm_entry_XDays['Buy_Signal'] = np.where((comm_entry_XDays['%K'] < 20) & (comm_entry_XDays['%K'] > comm_entry_XDays['%D']), 
+                                              comm_entry_XDays['Close'], np.nan)
+    comm_entry_XDays['Sell_Signal'] = np.where((comm_entry_XDays['%K'] > 80) & (comm_entry_XDays['%K'] < comm_entry_XDays['%D']),
+                                               comm_entry_XDays['Close'], np.nan)
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['Buy_Signal'], mode='markers', name='Buy Signal', 
                                   marker=dict(color='#FEDD00', size=12, symbol='triangle-up')))
     fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['Sell_Signal'], mode='markers', name='Sell Signal', 
                               marker=dict(color='#C724B1', size=12, symbol='triangle-down')))
+
+if checkbox_value_rsi:
+    st.subheader(f'{comm} Relative Strength Index (RSI)', divider='grey')
+    fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
+                                  mode='lines', name='RSI', line=dict(color='#00873E'
         
 fig_base.update_layout(xaxis=None, yaxis=None)
 st.plotly_chart(fig_base, use_container_width=True)
