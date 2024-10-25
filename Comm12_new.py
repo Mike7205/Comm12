@@ -5,6 +5,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 import yfinance as yf
 from datetime import datetime, date
+import pkg_resources
+
+st.write(f"Current Streamlit version: {pkg_resources.get_distribution('streamlit').version}")
 
 # Ustawienia strony
 st.set_page_config(layout="wide")
