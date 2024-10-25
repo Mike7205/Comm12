@@ -132,14 +132,14 @@ if checkbox_value_rsi:
     st.subheader(f'{comm} Relative Strength Index (RSI)', divider='red')
     col7, _ = st.columns([0.3, 0.6])
     with col7:
-      rsi_entry = st.slider('How big window you need ?', 5, 30, 1, key="<rsi_window>")
+      rsi_entry = st.slider('How big window you need ?', 14, 30, 1, key="<rsi_window>")
     
     rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
     #fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
     #                              mode='lines', name='RSI', line=dict(color='#00873E')))
     fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y=comm_entry_XDays['RSI'],
-                          name='RSI', marker_color='#00873E', yaxis='y2'))
+                          name='RSI', marker_color = '#00C0A3', yaxis='y2'))
     fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), width=1000, height=500)
         
 #fig_base.update_layout(xaxis=None, yaxis=None)
