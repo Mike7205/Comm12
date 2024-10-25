@@ -8,7 +8,25 @@ from datetime import datetime, date
 
 # Ustawienia strony
 st.set_page_config(layout="wide")
-st.title('Global economy indicators tech analyse dashboard')
+
+# Styl CSS dla nagłówka
+st.markdown("""
+    <style>
+        .header {
+            background-color: #F39F18;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .header h1 {
+            color: white;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Nagłówek z kolorowym tłem
+st.markdown('<div class="header"><h1>Global economy indicators tech analyse dashboard</h1></div>', unsafe_allow_html=True)
+#st.title('Global economy indicators tech analyse dashboard')
 
 # Definicje i słowniki
 today = date.today()
