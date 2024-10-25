@@ -72,7 +72,7 @@ with col2:
     
 comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
 # Base Chart
-fig_base = px.line(comm_entry_XDays, x='Date', y=['Close'], color_discrete_map={'Close':'black'}, width=1000, height=500)  
+fig_base = px.area(comm_entry_XDays, x='Date', y=['Close'], color_discrete_map={'Close':'black'}, width=1000, height=500)  
 
 if checkbox_value1:
     st.subheader(f'{comm} Short and long term averages', divider='red')
