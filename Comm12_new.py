@@ -152,7 +152,7 @@ if show_atr:
     st.subheader(f'{comm} -> ATR chart', divider='red')
     col8, _ = st.columns([0.3, 0.6])
     with col8:
-      atr_period = st.sidebar.slider('Select ATR period', 5, 50, 14, key="<atr_slider>")  
+      atr_period = st.slider('Select ATR period', 5, 50, 14, key="<atr_slider>")  
   
     atr = AverageTrueRange(high=comm_entry_XDays['High'], low=comm_entry_XDays['Low'], close=comm_entry_XDays['Close'], window=atr_period)
     comm_entry_XDays['ATR'] = atr.average_true_range()
