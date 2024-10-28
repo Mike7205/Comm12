@@ -66,7 +66,7 @@ show_atr = st.sidebar.checkbox('Show Average True Range (ATR)', value=True, key=
 
 # Deskryptor desktopu
 st.subheader(f'Base quotations for -> {comm}', divider='blue')
-col1, col2 = st.columns([0.5, 0.5])
+col1, col2 = st.columns([0.6, 0.4])
 with col1:
     side_tab = pd.DataFrame(comm_data(comm))
     st.write('Main Metrics:')
