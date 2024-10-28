@@ -156,8 +156,9 @@ if show_atr:
   
     atr = AverageTrueRange(high=comm_entry_XDays['High'], low=comm_entry_XDays['Low'], close=comm_entry_XDays['Close'], window=atr_period)
     comm_entry_XDays['ATR'] = atr.average_true_range()
-    fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['ATR'], mode='lines', name='ATR', line=dict(color='#00873E')))
-
+    #fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['ATR'], mode='lines', name='ATR', line=dict(color='#00873E')))
+    fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y=comm_entry_XDays['ATR'], name='ATR', marker_color='rgba(0, 192, 163, 0.5)', yaxis='y2'))
+    
     fig_base.update_layout(width=1100, height=600)
     
 st.plotly_chart(fig_base, use_container_width=True)
