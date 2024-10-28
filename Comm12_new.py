@@ -85,7 +85,7 @@ comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
 fig_base = px.line(comm_entry_XDays, x='Date', y=['Close'], color_discrete_map={'Close':'black'}, width=1100, height=600)  
 
 if checkbox_value1:
-    st.subheader(f'{comm} Short and long term averages', divider='red')
+    st.subheader(f'{comm} -> Short and long term averages', divider='red')
     col3, col4, _ = st.columns([0.3, 0.3, 0.4])
     with col3:
         nums = st.number_input('Enter the number of days for short average', value=5, key="<m30>")
@@ -109,7 +109,7 @@ if checkbox_value1:
                               name='Sell_Signal', mode='markers', marker=dict(color='red', size=15, symbol='triangle-down')))
     
 if checkbox_value2:
-    st.subheader(f'{comm} Stochastic oscillator signals', divider='red')
+    st.subheader(f'{comm} -> Stochastic oscillator signals', divider='red')
     col5, col6, _ = st.columns([0.3, 0.3, 0.4])
     with col5:
         K_num = st.number_input('Enter the number of days for %K parameter',value=10, key = "<k14>")
@@ -132,7 +132,7 @@ if checkbox_value2:
                               marker=dict(color='#C724B1', size=15, symbol='triangle-down')))
 
 if checkbox_value_rsi:
-    st.subheader(f'{comm} Relative Strength Index (RSI)', divider='red')
+    st.subheader(f'{comm} -> Relative Strength Index (RSI)', divider='red')
     col7, _ = st.columns([0.3, 0.6])
     with col7:
       rsi_entry = st.slider('How big window you need ?', 14, 30, 14, key="<rsi_window>")
