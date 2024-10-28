@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from ta.momentum import RSIIndicator
+from ta.volatility import AverageTrueRange
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
@@ -59,6 +60,7 @@ checkbox_value1 = st.sidebar.checkbox('Do you want to see short and long term av
 checkbox_value2 = st.sidebar.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
 checkbox_value_rsi = st.sidebar.checkbox('Show Relative Strength Index (RSI)', key="<rsi>")
 show_candlestick = st.sidebar.checkbox('Show Candlestick Chart', value=True, key="<candlestick>")
+show_atr = st.sidebar.checkbox('Show Average True Range (ATR)', value=True, key="<atr>")
 #comm = st.sidebar.radio('', list(comm_dict.values()))
 #comm_f(comm)
 st.sidebar.write('© Michał Leśniewski')
@@ -144,8 +146,18 @@ if show_candlestick:
     st.subheader(f'{comm} -> Candlestick chart', divider='red')
     fig_base.add_trace(go.Candlestick(x=comm_entry_XDays['Date'], open=comm_entry_XDays['Open'], high=comm_entry_XDays['High'],low=comm_entry_XDays['Low'],
                                       close=comm_entry_XDays['Close'], name='Candlestick'))
+    fig_base.update_layout(width=1100, height=600)
+  
+if show_atr:
+    st.subheader(f'{comm} -> ATR chart', divider='red')
+    col8, _ = st.columns([0.3, 0.6])
+    with col8:
+      atr_period = st.sidebar.slider('Select ATR period', 5, 50, 14, key="<atr_slider>")  
+  
+    atr = AverageTrueRange(high=comm_entry_XDays['High'], low=comm_entry_XDays['Low'], close=comm_entry_XDays['Close'], window=atr_period)
+    comm_entry_XDays['ATR'] = atr.average_true_range()
+    fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['ATR'], mode='lines', name='ATR', line=dict(color='#00873E')))
 
     fig_base.update_layout(width=1100, height=600)
     
-
 st.plotly_chart(fig_base, use_container_width=True)
