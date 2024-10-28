@@ -58,7 +58,7 @@ st.sidebar.subheader('Choose tech analyse tool') #('Indexies, Currencies, Bonds,
 checkbox_value1 = st.sidebar.checkbox('Do you want to see short and long term averages ?', key="<aver1>")
 checkbox_value2 = st.sidebar.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
 checkbox_value_rsi = st.sidebar.checkbox('Show Relative Strength Index (RSI)', key="<rsi>")
-show_candlestick = st.sidebar.checkbox('Show Candlestick Chart', value=True, key="<candlestick>"
+show_candlestick = st.sidebar.checkbox('Show Candlestick Chart', value=True, key="<candlestick>")
 #comm = st.sidebar.radio('', list(comm_dict.values()))
 #comm_f(comm)
 st.sidebar.write('© Michał Leśniewski')
