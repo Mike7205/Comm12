@@ -85,12 +85,12 @@ comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
 fig_base = px.line(comm_entry_XDays, x='Date', y=['Close'], color_discrete_map={'Close':'black'}, width=1100, height=600)  
 
 if checkbox_value1:
-    st.subheader(f'{comm} -> Short and long term averages', divider='red')
-    col3, col4, _ = st.columns([0.3, 0.3, 0.4])
-    with col3:
-        nums = st.number_input('Enter the number of days for short average', value=5, key="<m30>")
-    with col4:
-        numl = st.number_input('Enter the number of days for long average', value=15, key="<m35>")
+    st.sidebar.subheader(f'{comm} -> Short and long term averages', divider='red')
+    #col3, col4, _ = st.columns([0.3, 0.3, 0.4])
+    #with col3:
+    nums = st.sidebar.number_input('Enter the number of days for short average', value=5, key="<m30>")
+    #with col4:
+    numl = st.sidebar.number_input('Enter the number of days for long average', value=15, key="<m35>")
     
     comm_entry_XDays['Short_SMA'] = comm_entry_XDays['Close'].rolling(window=nums).mean()
     comm_entry_XDays['Long_SMA'] = comm_entry_XDays['Close'].rolling(window=numl).mean()
@@ -109,12 +109,12 @@ if checkbox_value1:
                               name='Sell_Signal', mode='markers', marker=dict(color='red', size=15, symbol='triangle-down')))
     
 if checkbox_value2:
-    st.subheader(f'{comm} -> Stochastic oscillator signals', divider='red')
-    col5, col6, _ = st.columns([0.3, 0.3, 0.4])
-    with col5:
-        K_num = st.number_input('Enter the number of days for %K parameter',value=10, key = "<k14>")
-    with col6:
-        D_num = st.number_input('Enter the number of days for %D parameter',value=10, key = "<d14>")
+    st.sidebar.subheader(f'{comm} -> Stochastic oscillator signals', divider='red')
+    #col5, col6, _ = st.columns([0.3, 0.3, 0.4])
+    #with col5:
+    K_num = st.sidebar.number_input('Enter the number of days for %K parameter',value=10, key = "<k14>")
+    #with col6:
+    D_num = st.sidebar.number_input('Enter the number of days for %D parameter',value=10, key = "<d14>")
 
     low_min  = comm_entry_XDays['Low'].rolling(window = K_num).min()
     high_max = comm_entry_XDays['High'].rolling(window = D_num).max()
@@ -132,10 +132,10 @@ if checkbox_value2:
                               marker=dict(color='#C724B1', size=15, symbol='triangle-down')))
 
 if checkbox_value_rsi:
-    st.subheader(f'{comm} -> Relative Strength Index (RSI)', divider='red')
-    col7, _ = st.columns([0.3, 0.6])
-    with col7:
-      rsi_entry = st.slider('How big window you need ?', 14, 30, 14, key="<rsi_window>")
+    st.sidebar.subheader(f'{comm} -> Relative Strength Index (RSI)', divider='red')
+    #col7, _ = st.columns([0.3, 0.6])
+    #with col7:
+    rsi_entry = st.sidebar.slider('How big window you need ?', 14, 30, 14, key="<rsi_window>")
     
     rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
@@ -143,16 +143,16 @@ if checkbox_value_rsi:
     fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), legend=dict( x=1.1, y=1 ), width=1100, height=600) # Pozycja legendy, aby przesunąć ją w prawo
 
 if show_candlestick:
-    st.subheader(f'{comm} -> Candlestick chart', divider='red')
+    st.sidebar.subheader(f'{comm} -> Candlestick chart', divider='red')
     fig_base.add_trace(go.Candlestick(x=comm_entry_XDays['Date'], open=comm_entry_XDays['Open'], high=comm_entry_XDays['High'],low=comm_entry_XDays['Low'],
                                       close=comm_entry_XDays['Close'], name='Candlestick'))
     fig_base.update_layout(width=1100, height=600)
   
 if show_atr:
-    st.subheader(f'{comm} -> ATR chart', divider='red')
-    col8, _ = st.columns([0.3, 0.6])
-    with col8:
-      atr_period = st.slider('Select ATR period', 5, 50, 14, key="<atr_slider>")  
+    st.sidebar.subheader(f'{comm} -> ATR chart', divider='red')
+    #col8, _ = st.columns([0.3, 0.6])
+    #with col8:
+    atr_period = st.sidebar.slider('Select ATR period', 5, 50, 14, key="<atr_slider>")  
   
     atr = AverageTrueRange(high=comm_entry_XDays['High'], low=comm_entry_XDays['Low'], close=comm_entry_XDays['Close'], window=atr_period)
     comm_entry_XDays['ATR'] = atr.average_true_range()
