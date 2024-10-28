@@ -63,7 +63,6 @@ show_candlestick = st.sidebar.checkbox('Show Candlestick Chart', value=True, key
 show_atr = st.sidebar.checkbox('Show Average True Range (ATR)', value=True, key="<atr>")
 #comm = st.sidebar.radio('', list(comm_dict.values()))
 #comm_f(comm)
-st.sidebar.write('© Michał Leśniewski')
 
 # Deskryptor desktopu
 st.subheader(f'Base quotations for -> {comm}', divider='blue')
@@ -139,7 +138,7 @@ if checkbox_value_rsi:
     
     rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
     comm_entry_XDays['RSI'] = rsi.rsi()
-    fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y= comm_entry_XDays['RSI'], name='RSI', marker_color='rgba(103,71,54, 0.5)', yaxis='y2'))  # Zmiana koloru na półprzezroczysty
+    fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y= comm_entry_XDays['RSI'], name='RSI', marker_color='rgba(98,52,18, 0.5)', yaxis='y2'))  # Zmiana koloru na półprzezroczysty
     fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), legend=dict( x=1.1, y=1 ), width=1100, height=600) # Pozycja legendy, aby przesunąć ją w prawo
 
 if show_candlestick:
@@ -162,3 +161,4 @@ if show_atr:
     fig_base.update_layout(width=1100, height=600)
     
 st.plotly_chart(fig_base, use_container_width=True)
+st.sidebar.write('© Michał Leśniewski')
