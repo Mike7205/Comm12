@@ -141,6 +141,7 @@ if checkbox_value_rsi:
     fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), legend=dict( x=1.1, y=1 ), width=1100, height=600) # Pozycja legendy, aby przesunąć ją w prawo
 
 if show_candlestick:
+    st.subheader(f'{comm} -> Candlestick chart', divider='red')
     fig_base.add_trace(go.Candlestick(x=comm_entry_XDays['Date'], open=comm_entry_XDays['Open'], high=comm_entry_XDays['High'],low=comm_entry_XDays['Low'],
                                       close=comm_entry_XDays['Close'], name='Candlestick'))
 
