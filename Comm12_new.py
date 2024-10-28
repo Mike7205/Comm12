@@ -55,7 +55,7 @@ comm_f(comm)
 
 # Styl zakładki bocznej
 st.html("""<style>[data-testid="stSidebarContent"] {color: black; background-color: #F6BE00} </style>""")
-st.sidebar.subheader('Choose tech analyse tool') #('Indexies, Currencies, Bonds, Commodities & Crypto', divider="grey")
+st.sidebar.subheader('Choose tech analyse tool') #('Indexies, Currencies, Bonds, Commodities & Crypto', divider="red")
 checkbox_value1 = st.sidebar.checkbox('Do you want to see short and long term averages ?', key="<aver1>")
 checkbox_value2 = st.sidebar.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
 checkbox_value_rsi = st.sidebar.checkbox('Show Relative Strength Index (RSI)', key="<rsi>")
