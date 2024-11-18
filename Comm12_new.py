@@ -22,7 +22,7 @@ comm_dict = {'^GSPC': 'SP_500', '^DJI': 'DJI30', '^IXIC': 'NASDAQ',
              'RUB=X': 'USD/RUB', 'DX-Y.NYB': 'US Dollar Index', '^XDE': 'Euro Currency Index', '^XDN': 'Japanese Yen Currency Index', 
              '^XDA': 'Australian Dollar Currency Index','^XDB': 'British Pound Currency Index', '^FVX': '5_YB', '^TNX': '10_YB',
              '^TYX': '30_YB', 'CL=F': 'Crude_Oil', 'BZ=F': 'Brent_Oil', 'GC=F': 'Gold','HG=F': 'Copper', 'PL=F': 'Platinum', 
-             'SI=F': 'Silver', 'NG=F': 'Natural Gas', 'ZR=F': 'Rice Futures', 'ZS=F': 'Soy Futures', 'BTC-USD': 'Bitcoin USD','ETH-USD': 'Ethereum USD'} #,'WIG.WA':'WIG'
+             'SI=F': 'Silver', 'NG=F': 'Natural Gas', 'ZR=F': 'Rice Futures', 'ZS=F': 'Soy Futures', 'BTC-USD': 'Bitcoin USD','ETH-USD': 'Ethereum USD'} #,'WIG.WA':'WIG' #'^125904-USD-STRD':'MSCI EUROPE',
 
 # Pobieranie danych
 def comm_f(comm):
