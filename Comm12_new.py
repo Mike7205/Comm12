@@ -100,9 +100,9 @@ with col2:
         xy = len(comm_entry.index)
 
     st.write('\n')
-    entry_p = st.slider('How long prices history you need?', 1, xy, min(200, xy), key="<commodities>")
+    #entry_p = st.slider('How long prices history you need?', 1, xy, min(200, xy), key="<commodities>")
+    entry_p = st.slider('How long prices history you need?', min_value=1, max_value=max(1, xy),  value=min(200, max(1, xy)),  key="<commodities>")
 
-    
 comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
 # Base Chart
 fig_base = px.line(comm_entry_XDays, x='Date', y=['Close'], color_discrete_map={'Close':'black'}, width=1100, height=600)  
