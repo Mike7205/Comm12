@@ -93,15 +93,9 @@ with col1:
     #checkbox_value2 = st.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
     
 with col2:
-    if comm_entry.empty:
-      st.warning("No data available for the selected commodity.")
-      xy = 1  # Przyjęcie wartości domyślnej dla pustego DataFrame
-    else:
-        xy = len(comm_entry.index)
-
-    st.write('\n')
-    #entry_p = st.slider('How long prices history you need?', 1, xy, min(200, xy), key="<commodities>")
-    entry_p = st.slider('How long prices history you need?', min_value=1, max_value=max(1, xy),  value=min(200, max(1, xy)),  key="<commodities>")
+    xy = (list(comm_entry.index)[-1])
+     st.write('\n')
+    entry_p = st.slider('How long prices history you need?', 1, xy, 200, key="<commodities>")
 
 comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
 # Base Chart
