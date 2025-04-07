@@ -95,10 +95,9 @@ with col1:
 with col2:
     xy = (list(comm_entry.index)[-1])
     if comm_entry.empty:
-      st.warning("No data available for the selected commodity.")
-      xy = 0  # lub inna wartość domyślna
+      xy = list(comm_entry.index)[-1]
     else:
-        xy = list(comm_entry.index)[-1]
+        xy = 1
     st.write('\n')
     entry_p = st.slider('How long prices history you need?', 1, xy, 200, key="<commodities>")
     
