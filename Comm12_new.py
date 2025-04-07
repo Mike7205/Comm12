@@ -94,7 +94,7 @@ with col1:
     
 with col2:
     xy = (list(comm_entry.index)[-1])
-     st.write('\n')
+    st.write('\n')
     entry_p = st.slider('How long prices history you need?', 1, xy, 200, key="<commodities>")
 
 comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
