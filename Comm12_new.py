@@ -37,30 +37,35 @@ def comm_f(comm):
 def comm_data(comm):
     global Tab_his
     shape_test = []
+
+    if comm_entry.empty:
+        print("comm_entry DataFrame is empty!")
+        return pd.DataFrame()  # Zwróć pusty DataFrame, jeśli brak danych
+
     sh = comm_entry.shape[0]
     start_date = comm_entry.Date.min()
     end_date = comm_entry.Date.max()
 
     # Pobranie maksymalnej, minimalnej i ostatniej wartości jako liczby
-    max_close_value = comm_entry['Close'].max() #.iloc[0]
-    min_close_value = comm_entry['Close'].min() #.iloc[0]
-    last_close_value = comm_entry['Close'].iloc[-1] #.iloc[0]
+    max_close_value = comm_entry['Close'].max()
+    min_close_value = comm_entry['Close'].min()
+
+    if not comm_entry.empty:
+        last_close_value = comm_entry['Close'].iloc[-1]
+    else:
+        last_close_value = None  # Wartość domyślna dla pustego DataFrame
 
     # Sprawdzenie braków danych i formatowanie wartości
     close_max = "{:.2f}".format(float(max_close_value)) if pd.notna(max_close_value) else "NaN"
     close_min = "{:.2f}".format(float(min_close_value)) if pd.notna(min_close_value) else "NaN"
     last_close = "{:.2f}".format(float(last_close_value)) if pd.notna(last_close_value) else "NaN"
-  
-    #close_max = "{:.2f}".format(comm_entry['Close'].max())
-    #close_min = "{:.2f}".format(comm_entry['Close'].min())
-    #last_close = "{:.2f}".format(comm_entry['Close'].iloc[-1])
-  
+
     v = (comm, sh, start_date, end_date, close_max, close_min, last_close)
     shape_test.append(v)
     Tab_length = pd.DataFrame(shape_test, columns=['Name', 'Rows', 'Start_Date', 'End_Date', 'Close_max', 'Close_min', 'Last_close'])
     Tab_his = Tab_length[['Start_Date', 'End_Date', 'Close_max', 'Close_min', 'Last_close']]
-    Tab_his['Start_Date'] = Tab_his['Start_Date'].dt.strftime('%Y-%m-%d')
-    Tab_his['End_Date'] = Tab_his['End_Date'].dt.strftime('%Y-%m-%d')
+    Tab_his['Start_Date'] = pd.to_datetime(Tab_his['Start_Date']).dt.strftime('%Y-%m-%d')
+    Tab_his['End_Date'] = pd.to_datetime(Tab_his['End_Date']).dt.strftime('%Y-%m-%d')
     return Tab_his
 
 comm = st.radio('', list(comm_dict.values()), horizontal=True)
