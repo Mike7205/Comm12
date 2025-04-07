@@ -40,9 +40,20 @@ def comm_data(comm):
     sh = comm_entry.shape[0]
     start_date = comm_entry.Date.min()
     end_date = comm_entry.Date.max()
-    close_max = "{:.2f}".format(comm_entry['Close'].max())
-    close_min = "{:.2f}".format(comm_entry['Close'].min())
-    last_close = "{:.2f}".format(comm_entry['Close'].iloc[-1])
+
+    # Pobranie maksymalnej, minimalnej i ostatniej wartości jako liczby
+    max_close_value = df_c1['Close'].max().iloc[0]
+    min_close_value = df_c1['Close'].min().iloc[0]
+    last_close_value = df_c1['Close'].iloc[-1].iloc[0]
+
+    # Sprawdzenie braków danych i formatowanie wartości
+    close_max = "{:.2f}".format(float(max_close_value)) if pd.notna(max_close_value) else "NaN"
+    close_min = "{:.2f}".format(float(min_close_value)) if pd.notna(min_close_value) else "NaN"
+    last_close = "{:.2f}".format(float(last_close_value)) if pd.notna(last_close_value) else "NaN"
+  
+    #close_max = "{:.2f}".format(comm_entry['Close'].max())
+    #close_min = "{:.2f}".format(comm_entry['Close'].min())
+    #last_close = "{:.2f}".format(comm_entry['Close'].iloc[-1])
     v = (comm, sh, start_date, end_date, close_max, close_min, last_close)
     shape_test.append(v)
     Tab_length = pd.DataFrame(shape_test, columns=['Name', 'Rows', 'Start_Date', 'End_Date', 'Close_max', 'Close_min', 'Last_close'])
