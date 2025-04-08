@@ -30,7 +30,7 @@ comm_dict = {
     'BTC-USD': 'Bitcoin USD','ETH-USD': 'Ethereum USD'
 }
 
-@st.cache_data
+#@st.cache_data
 def get_data(label):
     df = yf.download(label, start='2000-09-01', end=today, interval='1d')
     return df.reset_index()
