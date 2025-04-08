@@ -47,9 +47,9 @@ def comm_data(comm):
     end_date = comm_entry.Date.max()
 
     # Pobranie maksymalnej, minimalnej i ostatniej wartości jako liczby
-    max_close_value = comm_entry['Close'].max() #.iloc[0]
-    min_close_value = comm_entry['Close'].min() #.iloc[0]
-    last_close_value = comm_entry['Close'].iloc[-1] #.iloc[0]
+    max_close_value = comm_entry['Close'].max().iloc[0]
+    min_close_value = comm_entry['Close'].min().iloc[0]
+    last_close_value = comm_entry['Close'].iloc[-1].iloc[0]
 
     # Sprawdzenie braków danych i formatowanie wartości
     close_max = "{:.2f}".format(float(max_close_value)) if pd.notna(max_close_value) else "NaN"
