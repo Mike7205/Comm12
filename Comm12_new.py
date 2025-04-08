@@ -32,7 +32,7 @@ comm_dict = {
 
 #@st.cache_data
 def get_data(comm_label):
-    df = yf.download(label, start='2000-09-01', end=today, interval='1d')
+    df = yf.download(comm_label, start='2000-09-01', end=today, interval='1d')
     return df.reset_index()
 
 def describe_data(df, comm_name):
