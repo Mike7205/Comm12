@@ -93,9 +93,15 @@ with col1:
     #checkbox_value2 = st.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
     
 with col2:
-    xy = (list(comm_entry.index)[-1])
+    #xy = (list(comm_entry.index)[-1])
+    #st.write('\n')
+    #entry_p = st.slider('How long prices history you need?', 1, xy, 200, key="<commodities>")
+
+    xy = comm_entry.shape[0]
     st.write('\n')
     entry_p = st.slider('How long prices history you need?', 1, xy, 200, key="<commodities>")
+    comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
+
 
 comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
 # Base Chart
