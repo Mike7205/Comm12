@@ -41,6 +41,9 @@ def comm_f(comm):
 
 def comm_data(comm):
     global Tab_his
+    if comm_entry.empty:
+        return pd.DataFrame()  # Zwróć pustą ramkę danych, jeśli comm_entry jest puste.
+    
     shape_test = []
     sh = comm_entry.shape[0]
     start_date = comm_entry.Date.min()
@@ -49,7 +52,7 @@ def comm_data(comm):
     # Pobranie maksymalnej, minimalnej i ostatniej wartości jako liczby
     max_close_value = comm_entry['Close'].max()
     min_close_value = comm_entry['Close'].min()
-    last_close_value = comm_entry['Close'].iloc[-1]
+    last_close_value = comm_entry['Close'].iloc[-1] if sh > 0 else np.nan
 
     # Sprawdzenie braków danych i formatowanie wartości
     close_max = "{:.2f}".format(float(max_close_value)) if pd.notna(max_close_value) else "NaN"
@@ -83,9 +86,12 @@ col1, col2 = st.columns([0.6, 0.4])
 
 with col1:
     side_tab = pd.DataFrame(comm_data(comm))
-    st.write('Main Metrics:')
-    st.markdown(side_tab.to_html(escape=False, index=False), unsafe_allow_html=True)
-    
+    if not side_tab.empty:
+        st.write('Main Metrics:')
+        st.markdown(side_tab.to_html(escape=False, index=False), unsafe_allow_html=True)
+    else:
+        st.write("No data available for this commodity.")
+
 with col2:
     xy = comm_entry.shape[0]
     entry_p = st.slider('How long prices history you need?', 1, xy, 200, key="<commodities>")
