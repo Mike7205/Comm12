@@ -31,11 +31,11 @@ comm_dict = {
 }
 
 #@st.cache_data
-def get_data(label):
+def get_data(comm_label):
     df = yf.download(label, start='2000-09-01', end=today, interval='1d')
     return df.reset_index()
 
-def describe_data(df, name):
+def describe_data(df, comm_name):
     if df.empty:
         return pd.DataFrame()
     
