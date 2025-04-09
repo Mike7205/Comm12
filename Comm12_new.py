@@ -41,18 +41,15 @@ def comm_f(comm):
 
 def comm_data(comm):
     global Tab_his
-    if comm_entry.empty:
-        return pd.DataFrame()  # Zwróć pustą ramkę danych, jeśli comm_entry jest puste.
-    
     shape_test = []
     sh = comm_entry.shape[0]
     start_date = comm_entry.Date.min()
     end_date = comm_entry.Date.max()
 
     # Pobranie maksymalnej, minimalnej i ostatniej wartości jako liczby
-    max_close_value = comm_entry['Close'].max()
-    min_close_value = comm_entry['Close'].min()
-    last_close_value = comm_entry['Close'].iloc[-1] if sh > 0 else np.nan
+    max_close_value = comm_entry['Close'].max() #.iloc[0]
+    min_close_value = comm_entry['Close'].min() #.iloc[0]
+    last_close_value = comm_entry['Close'].iloc[-1] #.iloc[0]
 
     # Sprawdzenie braków danych i formatowanie wartości
     close_max = "{:.2f}".format(float(max_close_value)) if pd.notna(max_close_value) else "NaN"
@@ -67,103 +64,38 @@ def comm_data(comm):
     Tab_his['End_Date'] = Tab_his['End_Date'].dt.strftime('%Y-%m-%d')
     return Tab_his
 
-# Zmienna radio button na stronie głównej (poziomo)
-comm = st.radio('Select Commodity/Index:', list(comm_dict.values()), horizontal=True)
-comm_f(comm)
+#comm = st.radio('', list(comm_dict.values()), horizontal=True)
+#comm_f(comm)
 
 # Styl zakładki bocznej
 st.html("""<style>[data-testid="stSidebarContent"] {color: black; background-color: #F6BE00} </style>""")
-st.sidebar.subheader('Choose tech analyse tool')  # Zakładka boczna z narzędziami analizy
+st.sidebar.subheader('Choose tech analyse tool') #('Indexies, Currencies, Bonds, Commodities & Crypto', divider="red")
 checkbox_value1 = st.sidebar.checkbox('Do you want to see short and long term averages ?', key="<aver1>")
 checkbox_value2 = st.sidebar.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
 checkbox_value_rsi = st.sidebar.checkbox('Show Relative Strength Index (RSI)', key="<rsi>")
 show_candlestick = st.sidebar.checkbox('Show Candlestick Chart', value=False, key="<candlestick>")
 show_atr = st.sidebar.checkbox('Show Average True Range (ATR)', value=False, key="<atr>")
+comm = st.sidebar.radio('', list(comm_dict.values()))
+comm_f(comm)
 
-# Wyświetlanie danych i metryk dla wybranego symbolu
-st.subheader(f'Base quotations for -> {comm}')
+# Deskryptor desktopu
+st.subheader(f'Base quotations for -> {comm}', divider='blue')
 col1, col2 = st.columns([0.6, 0.4])
-
 with col1:
     side_tab = pd.DataFrame(comm_data(comm))
-    if not side_tab.empty:
-        st.write('Main Metrics:')
-        st.markdown(side_tab.to_html(escape=False, index=False), unsafe_allow_html=True)
-    else:
-        st.write("No data available for this commodity.")
-
+    st.write('Main Metrics:')
+    st.markdown(side_tab.to_html(escape=False, index=False), unsafe_allow_html=True)
+    #checkbox_value1 = st.checkbox('Do you want to see short and long term averages ?', key="<aver1>")
+    #checkbox_value2 = st.checkbox('Do you want to see Stochastic oscillator signals ?', key="<aver2>")
+    
 with col2:
+    #xy = (list(comm_entry.index)[-1])
+    #st.write('\n')
+    #entry_p = st.slider('How long prices history you need?', 1, xy, 200, key="<commodities>")
+
     xy = comm_entry.shape[0]
     entry_p = st.slider('How long prices history you need?', 1, xy, 200, key="<commodities>")
        
 comm_entry_XDays = comm_entry.iloc[xy - entry_p:xy]
-
 # Base Chart
 fig_base = px.line(comm_entry_XDays, x='Date', y=['Close'], color_discrete_map={'Close':'black'}, width=1100, height=600)  
-
-if checkbox_value1:
-    st.sidebar.subheader(f'{comm} -> Short and long term averages', divider='red')
-    nums = st.sidebar.number_input('Enter the number of days for short average', value=5, key="<m30>")
-    numl = st.sidebar.number_input('Enter the number of days for long average', value=15, key="<m35>")
-    
-    comm_entry_XDays['Short_SMA'] = comm_entry_XDays['Close'].rolling(window=nums).mean()
-    comm_entry_XDays['Long_SMA'] = comm_entry_XDays['Close'].rolling(window=numl).mean()
-    comm_entry_XDays['Buy_Signal'] = (comm_entry_XDays['Short_SMA'] > comm_entry_XDays['Long_SMA']).astype(int).diff()
-    comm_entry_XDays['Sell_Signal'] = (comm_entry_XDays['Short_SMA'] < comm_entry_XDays['Long_SMA']).astype(int).diff()
-    
-    fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['Short_SMA'],
-                             mode='lines', name='Short_SMA', line=dict(color='#00873E', dash='dot')))
-    fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['Long_SMA'],
-                             mode='lines', name='Long_SMA', line=dict(color='#A60A3D', dash='dot')))
-    fig_base.add_trace(go.Scatter(x=comm_entry_XDays[comm_entry_XDays['Buy_Signal'] == 1].Date, 
-                                  y=comm_entry_XDays[comm_entry_XDays['Buy_Signal'] == 1]['Short_SMA'], 
-                              name='Buy_Signal', mode='markers', marker=dict(color='#44D62C', size=15, symbol='triangle-up')))
-    fig_base.add_trace(go.Scatter(x=comm_entry_XDays[comm_entry_XDays['Sell_Signal'] == 1].Date, 
-                                  y=comm_entry_XDays[comm_entry_XDays['Sell_Signal'] == 1]['Short_SMA'], 
-                              name='Sell_Signal', mode='markers', marker=dict(color='red', size=15, symbol='triangle-down')))
-    
-if checkbox_value2:
-    st.sidebar.subheader(f'{comm} -> Stochastic oscillator signals', divider='red')
-    K_num = st.sidebar.number_input('Enter the number of days for %K parameter',value=10, key = "<k14>")
-    D_num = st.sidebar.number_input('Enter the number of days for %D parameter',value=10, key = "<d14>")
-
-    low_min  = comm_entry_XDays['Low'].rolling(window = K_num).min()
-    high_max = comm_entry_XDays['High'].rolling(window = D_num).max()
-    comm_entry_XDays['%K'] = (100*(comm_entry_XDays['Close'] - low_min) / (high_max - low_min)).fillna(0)
-    comm_entry_XDays['%D'] = comm_entry_XDays['%K'].rolling(window = 3).mean()
-
-    # Generowanie sygnałów kupna/sprzedaży
-    comm_entry_XDays['Buy_Signal'] = np.where((comm_entry_XDays['%K'] < 20) & (comm_entry_XDays['%K'] > comm_entry_XDays['%D']), 
-                                              comm_entry_XDays['Close'], np.nan)
-    comm_entry_XDays['Sell_Signal'] = np.where((comm_entry_XDays['%K'] > 80) & (comm_entry_XDays['%K'] < comm_entry_XDays['%D']),
-                                               comm_entry_XDays['Close'], np.nan)
-    fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['Buy_Signal'], mode='markers', name='Buy Signal', 
-                                  marker=dict(color='#FEDD00', size=15, symbol='triangle-up')))
-    fig_base.add_trace(go.Scatter(x=comm_entry_XDays['Date'], y=comm_entry_XDays['Sell_Signal'], mode='markers', name='Sell Signal', 
-                              marker=dict(color='#C724B1', size=15, symbol='triangle-down')))
-
-if checkbox_value_rsi:
-    st.sidebar.subheader(f'{comm} -> Relative Strength Index (RSI)', divider='red')
-    rsi_entry = st.sidebar.slider('How big window you need ?', 14, 30, 14, key="<rsi_window>")
-    rsi = RSIIndicator(close=comm_entry_XDays['Close'], window = rsi_entry)
-    comm_entry_XDays['RSI'] = rsi.rsi()
-    fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y= comm_entry_XDays['RSI'], name='RSI', marker_color='rgba(98,52,18, 0.5)', yaxis='y2'))  # Zmiana koloru na półprzezroczysty
-    fig_base.update_layout(yaxis2=dict(title='RSI', overlaying='y', side='right'), legend=dict( x=1.1, y=1 ), width=1100, height=600) # Pozycja legendy, aby przesunąć ją w prawo
-
-if show_candlestick:
-    st.sidebar.subheader(f'{comm} -> Candlestick chart', divider='red')
-    fig_base.add_trace(go.Candlestick(x=comm_entry_XDays['Date'], open=comm_entry_XDays['Open'], high=comm_entry_XDays['High'],low=comm_entry_XDays['Low'],
-                                      close=comm_entry_XDays['Close'], name='Candlestick'))
-    fig_base.update_layout(width=1100, height=600)
-  
-if show_atr:
-    st.sidebar.subheader(f'{comm} -> ATR chart', divider='red')
-    atr_period = st.sidebar.slider('Select ATR period', 5, 50, 14, key="<atr_slider>")  
-    atr = AverageTrueRange(high=comm_entry_XDays['High'], low=comm_entry_XDays['Low'], close=comm_entry_XDays['Close'], window=atr_period)
-    comm_entry_XDays['ATR'] = atr.average_true_range()
-    fig_base.add_trace(go.Bar(x=comm_entry_XDays['Date'], y=comm_entry_XDays['ATR'], name='ATR', marker_color='rgba(0, 192, 163, 0.5)', yaxis='y2'))
-    
-    fig_base.update_layout(width=1100, height=600)
-    
-st.plotly_chart(fig_base, use_container_width=True)
-st.sidebar.write('© Michał Leśniewski')
